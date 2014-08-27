@@ -2,160 +2,82 @@
 "http://www.w3.org/TR/html4/strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-	<head>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-		<script>
-var sndPlay=0;			
-			//$(document).ready(function() {
-soundEffect=function(){
-if(sndPlay==1)
-sndPlay=0;
-else
-sndPlay=1;
-}
-			
 
-startShow=(function() {
+<head>
 
-var snd;
-snd = new Audio("glass_shatter_c.wav"); 	
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" defer></script>
+    <script src="EqualizerCanvasLogic.js" defer></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="EqualizerStyle.css">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Music Equalizer Using Canvas APIs</title>
+    <meta name="author" content="Jayesh Kawli" />
+    <!-- Date: 2013-11-15 -->
 
-//$(document).ready(function() {	
-var can = document.getElementById("mycan");
+</head>
 
-    var height=document.getElementById('height').value;
-    var numbver=document.getElementById('numbers').value;
-    var width=document.getElementById('width').value;
-     var frameRate=document.getElementById('frameRate').value;
-	 var areaWidth=document.getElementById('areaWidth').value;
-                if (can.width < window.innerWidth) {can.width = window.innerWidth;
-				}
-				if (can.height < window.innerHeight) {
-					//can.height = window.innerHeight;
-				}
+<body>
 
-				var ctx = can.getContext("2d");
-				
-				var x=100,y=100;
-			function draw()
-			{
-			if(sndPlay==1)
-snd.play();
-			ctx.globalCompositeOperation="source-over";
-				ctx.fillStyle="rgba(0,0,0,0.8)";
-				ctx.fillRect(0,0,can.width,400);
-ctx.globalCompositeOperation="lighter";
-				for(var i=0;i<particle.length;i++)
-{
-	var part=particle[i];
-				ctx.beginPath();
-				var grad=ctx.createRadialGradient(part.x,part.y,0,part.x,part.y,20);
-				
-				grad.addColorStop(0,"white");
-				grad.addColorStop(1,part.color);
-				
-   if(width.length==0 || width<1)
-       width=15;
-				
-				ctx.fillStyle=grad;
-				ctx.rect(part.x,part.y,width,-part.height);
-				ctx.fill();
-    if(height.length==0 || height<1)
-        height=200;
-    part.height+=height*Math.random();
-    if(part.height>Math.random()*(1.5*height)){
-    part.height=Math.random()*(height*0.8);
-    }
-				
-				
-				
-}				
-}
-                
-                
-                
-                
-                
-function ranpoint(i)
-{
-	this.x=i;
-	this.y=350;
+    <div>
+        <canvas id="equalizerCanvas" width="800" height="400">
 
-var r=Math.random()*255>>0;
-var g=Math.random()*255>>0;
-var b=Math.random()*255>>0;
+        </canvas>
+    </div>
 
-this.color="rgba("+r+","+g+","+b+",0.5)";
-    this.height=Math.random()*200+100;
+    <table>
+        <tr>
+            <td colspan='2'>
+                <button id='startShow'>Press to start/update the Visualizer</button>
+                <button id='reset'>Pause</button>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td>Max Height:</td>
+            <td>
+                <input type="text" id="height" value="200">
+            </td>
+        </tr>
+        <tr>
+            <td>Number of Bars</td>
+            <td>
+                <input type="text" id="numbers" value="20">
+            </td>
+        </tr>
+        <tr>
+            <td>Width of bar</td>
+            <td>
+                <input type="text" id="width" value="15">
+            </td>
+        </tr>
+        <tr>
+            <td>Frame Rate</td>
+            <td>
+                <input type="text" id="frameRate" value="12">
+            </td>
+        </tr>
+        <tr>
+            <td>Visualizer Width</td>
+            <td>
+                <input type="text" id="areaWidth" value="600">
+            </td>
+        </tr>
+        <tr>
+            <td>Sound Effect</td>
+            <td>
+                <button id='soundEffect'>Press to start/stop Background sound</button>
 
-}
-   
-    if(numbver.length==0 || numbver<1)
-        numbver=20;
-var particle=[];
+            </td>
+        </tr>
+        <tr>
+            <td>Sound File Name (.wav)</td>
+            <td>
+                <input type='text' value='.wav' id='inputSoundFile' />
+            </td>
+        </tr>
+    </table>
+    <br/>
+</body>
 
-if(areaWidth.length==0 || areaWidth<1)
-areaWidth=600
-for(var i=20;i<=areaWidth;i+=areaWidth/numbver)
-{
-	
-	particle.push(new ranpoint(i));
-	
-}
-    if(frameRate.length==0)
-        frameRate=12;
-    
-    if(typeof Game_Interval != "undefined") clearInterval(Game_Interval);
-        Game_Interval = setInterval(draw, (1/frameRate)*1000);
-			
-
-})
-	
-		
-			
-		</script>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>HTML</title>
-		<meta name="author" content="jayeshkawli" />
-		<!-- Date: 2013-11-15 -->
-	</head>
-	<body>
-		
-		
-		
-		
-		
-        <div>
-		<canvas id="mycan" style="margin-left:auto;margin-right:auto;" width="800" height="400">
-            
-		</canvas>
-        </div>
-        
-       
-<button onclick='startShow()'>Press to start/update the Visualizer</button><br/>
-<table>
-        <tr><td>Max Height: </td><td><input type="text" id="height" value="200"></td></tr>
-<tr>       <td> Number of Bars</td> <td><input type="text" id="numbers" value="20"></td></tr>
-<tr>        <td>Width of bar</td> <td><input type="text" id="width" value="15"></td></tr>
-    <tr>   <td> Frame Rate </td><td><input type="text" id="frameRate" value="12"></td></tr>
-	 <tr>   <td> Visualizer Width </td><td><input type="text" id="areaWidth" value="600"></td></tr>
-	<tr>   <td> Sound Effect</td><td><button onclick='soundEffect()'>Press to start/stop Background sound</button></td></tr>
-		</table>
-	 <br/>
-           
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</body>
 </html>
-

@@ -1,0 +1,16 @@
+#equalizerCanvas{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+  table{
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  table td{
+    border: 1px solid black;
+    padding: 10px 10px;
+  }
+#reset{
+	display: none;
+}
