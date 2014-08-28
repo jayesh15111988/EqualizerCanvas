@@ -3,7 +3,7 @@
 	 //Add event listener to buttons on the view to start or update equalizer
 	document.getElementById('startShow').addEventListener("click", function() {
 	    startShow();
-	    document.getElementById('reset').style.display='inline';
+	    document.getElementById('pause').style.display='inline';
 	}, false);
 
 	 //Now event listener to add/remove sound button
@@ -11,43 +11,70 @@
 	    soundEffect()
 	}, false);
 
-document.getElementById('reset').addEventListener("click", function() {
+document.getElementById('pause').addEventListener("click", function() {
 	    
 
-	    if(typeof Game_Interval!=='undefined'){
+	  
 	    clearInterval(Game_Interval);
-	    document.getElementById('reset').style.display='none';
-	}
+	    document.getElementById('pause').style.display='none';
+	
 	
 	}, false);
 
 
-	var sndPlay = 0;
+var can = document.getElementById("equalizerCanvas");
+ var canvasContext = can.getContext("2d");
+var maximumWidth=window.innerWidth;
+var maximumHeight=400;
+
+
+
+
+
+
+function initializeCanvasWithImageSource(placeHolderImageSource){
+	var base_image = new Image();
+  base_image.src = 'Dummy_Equalizer.jpg';
+
+
+  base_image.onload = function(){
+    canvasContext.drawImage(base_image,0 , 0);
+
+  }
+}
+
+
+initializeCanvasWithImageSource('Dummy_Equalizer.jpg');
+
+
+
+
+	var soundPlay = 0;
 
 
 
 	soundEffect = function() {
-	    if (sndPlay == 1){
-	        sndPlay = 0;
+	    if (soundPlay == 1){
+	        soundPlay = 0;
 	    }
 	    else{
-	        sndPlay = 1;
+	        soundPlay = 1;
 	    }
 	}
 
 
 	startShow = (function() {
 
-	    var snd;
+	    var audioSource;
 
 	    var audioFileName = document.getElementById('inputSoundFile').value;
 	    if (audioFileName.length < 5) {
 	        audioFileName = "glass_shatter_c.wav";
 	    }
 
-	    snd = new Audio(audioFileName);
+	    audioSource = new Audio(audioFileName);
 
-	    var can = document.getElementById("equalizerCanvas");
+	    
 
 	    var height = document.getElementById('height').value;
 	    var numbver = document.getElementById('numbers').value;
@@ -55,25 +82,25 @@ document.getElementById('reset').addEventListener("click", function() {
 	    var frameRate = document.getElementById('frameRate').value;
 	    var areaWidth = document.getElementById('areaWidth').value;
 	    if (can.width < window.innerWidth) {
-	        can.width = window.innerWidth;
+	        can.width = maximumWidth;
 	    }
 
-	    var ctx = can.getContext("2d");
+	   
 
 	    var x = 100,
 	        y = 100;
 
 	    function draw() {
-	        if (sndPlay == 1)
-	            snd.play();
-	        ctx.globalCompositeOperation = "source-over";
-	        ctx.fillStyle = "rgba(0,0,0,0.8)";
-	        ctx.fillRect(0, 0, can.width, 400);
-	        ctx.globalCompositeOperation = "lighter";
+	        if (soundPlay == 1)
+	            audioSource.play();
+	        canvasContext.globalCompositeOperation = "source-over";
+	        canvasContext.fillStyle = "rgba(0,0,0,0.8)";
+	        canvasContext.fillRect(0, 0, maximumWidth, maximumHeight);
+	        canvasContext.globalCompositeOperation = "lighter";
 	        for (var i = 0; i < particle.length; i++) {
 	            var part = particle[i];
-	            ctx.beginPath();
-	            var grad = ctx.createRadialGradient(part.x, part.y, 0, part.x, part.y, 20);
+	            canvasContext.beginPath();
+	            var grad = canvasContext.createRadialGradient(part.x, part.y, 0, part.x, part.y, 20);
 
 	            grad.addColorStop(0, "white");
 	            grad.addColorStop(1, part.color);
@@ -82,9 +109,9 @@ document.getElementById('reset').addEventListener("click", function() {
 	                width = 15;
 	            }
 
-	            ctx.fillStyle = grad;
-	            ctx.rect(part.x, part.y, width, -part.height);
-	            ctx.fill();
+	            canvasContext.fillStyle = grad;
+	            canvasContext.rect(part.x, part.y, width, -part.height);
+	            canvasContext.fill();
 	            if (height.length == 0 || height < 1)
 	                height = 200;
 	            part.height += height * Math.random();
