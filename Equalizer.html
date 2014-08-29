@@ -6,7 +6,10 @@
 <head>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" defer></script>
+
+    <script src="EqualizerSound.js" defer></script>
     <script src="EqualizerCanvasLogic.js" defer></script>
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="EqualizerStyle.css">
 
@@ -20,7 +23,6 @@
 <body>
 
 
-
     <div>
         <canvas id="equalizerCanvas" width="1366" height="400">
 
@@ -30,7 +32,7 @@
     <table>
         <tr>
             <td colspan='2'>
-                <button id='startShow'>Press to start/update the Visualizer</button>
+                <button id='startShow'>Press to Start / Update the Visualizer</button>
                 <button id='pause'>Pause</button>
                 <br/>
             </td>
@@ -68,17 +70,18 @@
         <tr>
             <td>Sound Effect</td>
             <td>
-                <button id='soundEffect'>Press to start/stop Background sound</button>
+                <button id='soundEffect'>Press to Start / Stop Background sound</button>
 
             </td>
         </tr>
         <tr>
             <td>Sound File Name (.wav)</td>
             <td>
-                <input type='text' value='glass_shatter_c.wav' id='inputSoundFile' /> e.g. Music_Instrument.wav
+                <input type='text' value='glass_shatter_c.wav' id='inputSoundFile' />e.g. Music_Instrument.wav
             </td>
         </tr>
     </table>
+    <div>Please press Start / Update the Visualizer button each time you change the name of audio file</div>
     <br/>
 </body>
 
