@@ -8,6 +8,6 @@ requests, let me know. Will be more than happy to work on them.
 
 Interactive demo could be found online at following link:
 
-http://www.jayeshkawli.com/jayeshkawli/canvas/Equalizer/Equalizer.html
+http://www.jayeshkawli.com/Canvas/Equalizer/Equalizer.html
 
 Any issues/bugs could be redirected directly at my email address - j.kawli@gmail.com
